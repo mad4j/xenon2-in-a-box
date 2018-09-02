@@ -1,0 +1,57 @@
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Lode Runner in a Box</title>
+
+    <script type="text/javascript" src="js-dos-api-3.0.js"></script>
+
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000; 
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .page-container { text-align: center; }
+        .dosbox-container { width: 640px; height: 400px; }
+        .dosbox-container > .dosbox-overlay { background: url(cover.png); }
+    </style>
+
+  </head>
+  <body>
+
+    <div class="page-container">
+      <div id="dosbox"></div>
+      <br/>
+      <button onclick="dosbox.requestFullScreen();">Make fullscreen</button>
+    </div>
+    
+    <script type="text/javascript">
+
+      //init DosBox emulator
+      var dosbox = new Dosbox({
+        id: "dosbox",
+        onload: function (dosbox) {
+          dosbox.run("GAME.zip", "./XENON2.EXE");
+        },
+        onrun: function (dosbox, app) {
+          console.log("App '" + app + "' is runned");
+        }
+      });
+    
+      //added fake auto-start
+      window.onload = function(e) { 
+        document
+          .querySelector(".dosbox-start")
+          .click();
+      };
+
+    </script>
+
+  </body>
+</html>
